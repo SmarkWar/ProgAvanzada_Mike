@@ -3,17 +3,19 @@ from typing import List
 from paciente.paciente import Paciente
 from medico.medico import Medico
 from consulta.consulta import Consulta
+from validador_hospital import ValidadorHospital
 
 class Hospital:
     pacientes: List[Paciente] = []
     medicos: List[Medico] = []
     consultas: List[Consulta] = []
-    
+    validador_hospital = ValidadorHospital()
+
     def registrar_consulta(self, id_paciente, id_medico):
-        if self.validar_cantidad_usuarios() == False:
+        if not self.validador_hospital.validar_cantidad_usuarios(lista_pacientes=self.pacientes, lista_medicos=self.medicos):
             return
 
-        if self.validar_existencia_paciente() == False or self.validar_existencia_medico() == False:
+        if not self.validador_hospital.validar_existencia_paciente(id_paciente=id_paciente, lista_pacientes=self.pacientes):
             print("Nos se puede registrar la consulta, no hay medicos o pacientes")
             return
         
@@ -64,31 +66,6 @@ class Hospital:
     def eliminar_medico_por_id(self, id_medico):
         self.medicos = [medico for medico in self.medicos if medico.id != id_medico]
         print(f"Médico con ID {id_medico} ha sido eliminado.")
-    
-    def validar_existencia_paciente(self, id_paciente):
-        for paciente in self.pacientes:
-            if paciente.id == id_paciente:
-                return True
-            
-        return False
-    
-    def validar_existencia_medico(self, id_medico):
-        for medico in self.medicos:
-            if medico.id == id_medico:
-                return True
-            
-        return False
-        
-    def validar_cantidad_usuarios(self):
-        if len(self.pacientes) == 0:
-            print("No existen pacientes, no puedes registrar una consulta")
-            return False
-        
-        if len(self.medicos) == 0:
-            print("No existen medicos, no puedes registrar una consulta")
-            return False
-        
-        return True
     
     def calcular_edad(self, persona):
         from datetime import datetime
