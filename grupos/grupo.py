@@ -1,3 +1,4 @@
+
 from typing import List
 from estudiantes.estudiante import Estudiante
 from maestros.maestro import Maestro
@@ -9,3 +10,4 @@ class Grupo:
     maestros: List[Maestro] = []
     materias: List[Materia] = []
     tipo: chr
+ 
