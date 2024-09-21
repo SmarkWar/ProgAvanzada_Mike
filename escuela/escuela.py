@@ -27,5 +27,15 @@ class Escuela:
     def generar_numero_control_maestro(self, maestro: Maestro):
         numero_control_maestro = f"M{maestro.ano_nacimiento.year}{datetime.now().day}{randint(500, 5000)}{maestro.nombre[:2].upper()}{maestro.rfc[-2:].upper()}{len(self.lista_maestros)+1}"
         return numero_control_maestro
+    
+    def registrar_materia(self, materia:Materia):
+        self.lista_materias.append(materia)
+        
+    def generar_numero_control_materia(self, materia: Materia, semestre: Materia, creditos: Materia):
+        # "MT{ultimos 2 digitos del nombre}{semestre}{cantidad creditos}{random 1, 1000}"
+        numero_control_materia = f"MT{materia.nombre[-2:].upper()}{semestre}{creditos}{randint(1, 1000)}"
+        return numero_control_materia
+    
+    
  
     

@@ -3,6 +3,7 @@ from datetime import datetime
 from escuela.escuela import Escuela
 from estudiantes.estudiante import Estudiante
 from maestros.maestro import Maestro
+from materias.materia import Materia
 
 escuela = Escuela()
 
@@ -21,6 +22,7 @@ while True:
     if opcion == "1":
         print("----------------------------------------------------")
         print("Elegiste la opcion para registrar un estudiante")
+        print("----------------------------------------------------")
         
         numero_control = escuela.generar_numero_control()
         print("Numero de control: ", numero_control)
@@ -36,6 +38,7 @@ while True:
     if opcion == "2":
         print("----------------------------------------------------")
         print("Elegiste la opcion para registrar un maestro")
+        print("----------------------------------------------------")
         
         nombre = input("Ingresa el nombre del maestro: ")
         apellido = input("Ingresa el apellido del maestro: ")
@@ -54,7 +57,21 @@ while True:
         print("Numero de control: ", numero_control_maestro)
         
     if opcion == "3":
-        pass
+        print("----------------------------------------------------")
+        print("Elegiste la opcion para registrar una materia")
+        print("----------------------------------------------------")
+        
+        nombre = input("Ingresa el nombre de la materia: ")
+        descripcion = input("Ingresa una descripcion de la materia: ")
+        semestre = int(input("Ingresa el semestre de la materia: "))
+        creditos = int(input("Ingresa los creditos correspondientes de la materia: "))
+
+        materia = Materia("", nombre, descripcion, semestre, creditos)
+        numero_control_materia = escuela.generar_numero_control_materia(materia, semestre, creditos)
+        materia.numero_control_materia = numero_control_materia
+        escuela.registrar_materia(materia)
+        
+        print("Numero de control: ", numero_control_materia)
     
     if opcion == "4":
         pass
