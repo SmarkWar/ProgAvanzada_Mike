@@ -4,6 +4,9 @@ from escuela.escuela import Escuela
 from estudiantes.estudiante import Estudiante
 from maestros.maestro import Maestro
 from materias.materia import Materia
+from carrera.carrera import Carrera
+from grupos.grupo import Grupo
+from semestre.semestre import Semestre
 
 escuela = Escuela()
 
@@ -22,7 +25,12 @@ while True:
     print("10. Eliminar Estudiante")
     print("11. Eliminar Mestro")
     print("12. Eliminar Materia")
-    print("13. Salir")
+    print("13. Registrar Carrera")
+    print("14. Registrar Semestre")
+    print("15. Mostrar Carrera")
+    print("16. Mostrar Semestre")
+    print("17. Mostrar Grupo")
+    print("18. Salir")
     print("----------------------------------------------------")
     opcion = input("Ingresa una opcion para continuar: ")
     
@@ -84,7 +92,13 @@ while True:
         print("Numero de control: ", numero_control_materia)
     
     if opcion == "4":
-        pass
+        print("----------------------------------------------------")
+        print("Elegiste la opcion para registrar un nuevo grupo")
+        print("----------------------------------------------------")
+        tipo = input("Ingresa el tipo de grupo (A o B): ")
+        id_semestre = input("Ingresa el ID del semestre al que pertenece: ")
+        grupo = Grupo(tipo=tipo, id_semestre=id_semestre)
+        escuela.registrar_grupo(grupo=grupo)
     
     if opcion == "5":
         pass
@@ -132,6 +146,41 @@ while True:
         escuela.eliminar_materia(numero_control_materia)
     
     if opcion == "13":
+        print("----------------------------------------------------")
+        print("Seleccionaste la opcion para registrar una carrera")
+        print("----------------------------------------------------")
+        nombre = input("Ingresa el nombre de la carrera: ")
+        carrera = Carrera(nombre=nombre)
+        escuela.registrar_carrera(carrera=carrera)
+        
+    if opcion == "14":
+        print("----------------------------------------------------")
+        print("Seleccionaste la opcion para registrar un semestre")
+        print("----------------------------------------------------")
+        numero = input("Ingresa el numero del semestre: ")
+        id_carrera = input("Ingresa el ID de la carrera: ")
+        semestre = Semestre(numero=numero, id_carrera=id_carrera)
+        escuela.registrar_semestre(semestre=semestre)
+    
+    if opcion == "15":
+        print("----------------------------------------------------")
+        print("Seleccionaste la opcion para mostrar las carreras")
+        print("----------------------------------------------------")
+        escuela.listar_carreras()
+        
+    if opcion == "16":
+        print("----------------------------------------------------")
+        print("Seleccionaste la opcion para mostrar los semestres")
+        print("----------------------------------------------------")
+        escuela.listar_semestres()
+        
+    if opcion == "17":
+        print("----------------------------------------------------")
+        print("Seleccionaste la opcion para mostrar los grups")
+        print("----------------------------------------------------")
+        escuela.listar_grupos()
+    
+    if opcion == "18":
         print("----------------------------------------------------")
         print("Hasta luego")
         break
