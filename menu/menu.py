@@ -78,24 +78,27 @@ class Menu:
     def mostrar_menu(self, escuela):
         while True:
             print("----------------------------------------------------")
-            print("** MindBox **")
+            print("** MINDBOX **")
+            print("----------------------------------------------------")
             print("1. Registrar Estudiante")
             print("2. Registrar Maestro")
             print("3. Registrar Materia")
             print("4. Registrar Grupo")
             print("5. Registrar Horario")
-            print("6. Mostrar Estudiantes")
-            print("7. Mostrar Mestros")
-            print("8. Mostrar Materias")
-            print("9. Mostrar Grupos")
-            print("10. Eliminar Estudiante")
-            print("11. Eliminar Mestro")
-            print("12. Eliminar Materia")
-            print("13. Registrar Carrera")
-            print("14. Registrar Semestre")
-            print("15. Mostrar Carrera")
-            print("16. Mostrar Semestre")
-            print("17. Mostrar Grupo")
+            print("6. Registrar Carrera")
+            print("7. Registrar Semestre")
+            print("----------------------------------------------------")
+            print("8. Mostrar Estudiantes")
+            print("9. Mostrar Mestros")
+            print("10. Mostrar Materias")
+            print("11. Mostrar Grupos")
+            print("12. Mostrar Carrera")
+            print("13. Mostrar Semestre")
+            print("14. Mostrar Grupo")
+            print("----------------------------------------------------")
+            print("15. Eliminar Estudiante")
+            print("16. Eliminar Mestro")
+            print("17. Eliminar Materia")
             print("18. Salir")
             print("----------------------------------------------------")
             opcion = input("Ingresa una opcion para continuar: ")
@@ -135,14 +138,14 @@ class Menu:
                 dia = int(input("Ingresa el dia de nacimiento del maestro: "))
                 fecha_nacimiento_maestro = datetime(ano, mes, dia)
                 
-                contrasena = input("Ingresa la contrasena del maestro ")
+                contrasena = input("Ingresa la contrasena del maestro: ")
             
                 maestro = Maestro("", rfc, nombre, apellido, sueldo, fecha_nacimiento_maestro, contrasena)
-                numero_control_maestro = escuela.generar_numero_control_maestro(maestro)
-                maestro.numero_control_maestro = numero_control_maestro
+                numero_control = escuela.generar_numero_control_maestro(maestro)
+                maestro.numero_control = numero_control
                 escuela.registrar_maestro(maestro)
                 
-                print("Numero de control: ", numero_control_maestro)
+                print("Numero de control: ", numero_control)
                 
             if opcion == "3":
                 print("----------------------------------------------------")
@@ -155,11 +158,11 @@ class Menu:
                 creditos = int(input("Ingresa los creditos correspondientes de la materia: "))
 
                 materia = Materia("", nombre, descripcion, semestre, creditos)
-                numero_control_materia = escuela.generar_numero_control_materia(materia, semestre, creditos)
-                materia.numero_control_materia = numero_control_materia
+                numero_control = escuela.generar_numero_control_materia(materia, semestre, creditos)
+                materia.numero_control = numero_control
                 escuela.registrar_materia(materia)
                 
-                print("Numero de control: ", numero_control_materia)
+                print("Numero de control: ", numero_control)
             
             if opcion == "4":
                 print("----------------------------------------------------")
@@ -175,55 +178,13 @@ class Menu:
             
             if opcion == "6":
                 print("----------------------------------------------------")
-                print("Seleccionaste la opcion para mostrar los estudiantes")
-                print("----------------------------------------------------")
-                escuela.listar_estudiantes()
-                
-            if opcion == "7":
-                print("----------------------------------------------------")
-                print("Seleccionaste la opcion para mostrar los maestros")
-                print("----------------------------------------------------")
-                escuela.listar_maestros()
-            
-            if opcion == "8":
-                print("----------------------------------------------------")
-                print("Seleccionaste la opcion para mostrar las materias")
-                print("----------------------------------------------------")
-                escuela.listar_materias()
-            
-            if opcion == "9":
-                pass
-            
-            if opcion == "10":
-                print("----------------------------------------------------")
-                print("Seleccionaste la opcion para eliinar un estudiante")
-                print("----------------------------------------------------")
-                numero_control = input("Ingresa el numero de control del estudiante: ")
-                escuela.eliminar_estudiante(numero_control)
-            
-            if opcion == "11":
-                print("----------------------------------------------------")
-                print("Seleccionaste la opcion para eliinar un maestro")
-                print("----------------------------------------------------")
-                numero_control_maestro = input("Ingresa el numero de control del maestro: ")
-                escuela.eliminar_maestro(numero_control_maestro)
-            
-            if opcion == "12":
-                print("----------------------------------------------------")
-                print("Seleccionaste la opcion para eliinar una materia")
-                print("----------------------------------------------------")
-                numero_control_materia = input("Ingresa el numero de control de la materia: ")
-                escuela.eliminar_materia(numero_control_materia)
-            
-            if opcion == "13":
-                print("----------------------------------------------------")
                 print("Seleccionaste la opcion para registrar una carrera")
                 print("----------------------------------------------------")
                 nombre = input("Ingresa el nombre de la carrera: ")
                 carrera = Carrera(nombre=nombre)
                 escuela.registrar_carrera(carrera=carrera)
                 
-            if opcion == "14":
+            if opcion == "7":
                 print("----------------------------------------------------")
                 print("Seleccionaste la opcion para registrar un semestre")
                 print("----------------------------------------------------")
@@ -232,23 +193,65 @@ class Menu:
                 semestre = Semestre(numero=numero, id_carrera=id_carrera)
                 escuela.registrar_semestre(semestre=semestre)
             
-            if opcion == "15":
+            if opcion == "8":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para mostrar los estudiantes")
+                print("----------------------------------------------------")
+                escuela.listar_estudiantes()
+            
+            if opcion == "9":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para mostrar los maestros")
+                print("----------------------------------------------------")
+                escuela.listar_maestros()
+            
+            if opcion == "10":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para mostrar las materias")
+                print("----------------------------------------------------")
+                escuela.listar_materias()
+            
+            if opcion == "11":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para mostrar los grupos")
+                print("----------------------------------------------------")
+                escuela.listar_grupos()
+            
+            if opcion == "12":
                 print("----------------------------------------------------")
                 print("Seleccionaste la opcion para mostrar las carreras")
                 print("----------------------------------------------------")
                 escuela.listar_carreras()
                 
-            if opcion == "16":
+            if opcion == "13":
                 print("----------------------------------------------------")
                 print("Seleccionaste la opcion para mostrar los semestres")
                 print("----------------------------------------------------")
                 escuela.listar_semestres()
                 
+            if opcion == "14":
+                pass
+            
+            if opcion == "15":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para eliinar un estudiante")
+                print("----------------------------------------------------")
+                numero_control = input("Ingresa el numero de control del estudiante: ")
+                escuela.eliminar_estudiante(numero_control)
+                
+            if opcion == "16":
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para eliinar un maestro")
+                print("----------------------------------------------------")
+                numero_control = input("Ingresa el numero de control del maestro: ")
+                escuela.eliminar_maestro(numero_control)
+                
             if opcion == "17":
                 print("----------------------------------------------------")
-                print("Seleccionaste la opcion para mostrar los grups")
+                print("Seleccionaste la opcion para eliinar una materia")
                 print("----------------------------------------------------")
-                escuela.listar_grupos()
+                numero_control_materia = input("Ingresa el numero de control de la materia: ")
+                escuela.eliminar_materia(numero_control_materia)
             
             if opcion == "18":
                 print("----------------------------------------------------")

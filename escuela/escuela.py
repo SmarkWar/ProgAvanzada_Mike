@@ -54,12 +54,12 @@ class Escuela:
         return numero_control
         
     def generar_numero_control_maestro(self, maestro: Maestro):
-        numero_control_maestro = f"M{maestro.fecha_nacimiento_maestro.year}{datetime.now().day}{randint(500, 5000)}{maestro.nombre[:2].upper()}{maestro.rfc[-2:].upper()}{len(self.lista_maestros)+1}"
-        return numero_control_maestro
+        numero_control = f"M{maestro.fecha_nacimiento_maestro.year}{datetime.now().day}{randint(500, 5000)}{maestro.nombre[:2].upper()}{maestro.rfc[-2:].upper()}{len(self.lista_maestros)+1}"
+        return numero_control
         
     def generar_numero_control_materia(self, materia: Materia, semestre: Materia, creditos: Materia):
-        numero_control_materia = f"MT{materia.nombre[-2:].upper()}{semestre}{creditos}{randint(1, 1000)}"
-        return numero_control_materia
+        numero_control = f"MT{materia.nombre[-2:].upper()}{semestre}{creditos}{randint(1, 1000)}"
+        return numero_control
     
     def listar_estudiantes(self):
         print("----------------------------------------------------")
@@ -113,22 +113,22 @@ class Escuela:
         
         print(f"No se encontro el estudiante con numero de control: {numero_control}")
     
-    def eliminar_maestro(self, numero_control_maestro: str):
+    def eliminar_maestro(self, numero_control: str):
         print("----------------------------------------------------")
         for maestro in self.lista_maestros:
-            if maestro.numero_control_maestro == numero_control_maestro:
+            if maestro.numero_control == numero_control:
                 self.lista_maestros.remove(maestro)
                 print("Maestro eliminado")
                 return
         
-        print(f"No se encontro el maestro con numero de control: {numero_control_maestro}")
+        print(f"No se encontro el maestro con numero de control: {numero_control}")
     
-    def eliminar_materia(self, numero_control_materia: str):
+    def eliminar_materia(self, numero_control: str):
         for materia in self.lista_materias:
-            if materia.numero_control_materia == numero_control_materia:
+            if materia.numero_control == numero_control:
                 self.lista_materias.remove(materia)
                 print("Materia eliminada")
                 return
         
-        print(f"No se encontro la materia con numero de control: {numero_control_materia}")
+        print(f"No se encontro la materia con numero de control: {numero_control}")
  
