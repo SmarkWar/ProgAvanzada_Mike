@@ -25,3 +25,4 @@ class Carrera:
     def mostrar_info_carrera(self):
         info = f"Matricula: {self.matricula}, Nombre: {self.nombre}, Numero de semestre: {self.numero_semestre}"
         return info
+ 

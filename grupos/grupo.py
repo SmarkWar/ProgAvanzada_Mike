@@ -24,4 +24,3 @@ class Grupo:
     def mostrar_info_grupo(self):
         info = f"ID: {self.id}, Tipo: {self.tipo}, ID del semestre: {self.id_semestre}"
         return info
- 

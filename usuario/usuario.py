@@ -1,5 +1,5 @@
  
-from .utils.roles import Rol
+from usuario.utils.roles import Rol
 
 class Usuario:
     numero_control: str

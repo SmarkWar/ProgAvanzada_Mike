@@ -1,4 +1,4 @@
-
+ 
 from usuario.usuario import Usuario
 from usuario.utils.roles import Rol
 
@@ -17,3 +17,4 @@ class Coordinador(Usuario):
         nombre_completo = f"{self.nombre} {self.apellido}"
         info = f"Numero de control: {self.numero_control}, Nombre completo: {nombre_completo}, Sueldo: {self.sueldo}, RFC: {self.rfc}, Años de Antiguedad: {self.antiguedad}, Rol: {self.rol}"
         return info
+ 

@@ -25,4 +25,3 @@ class Semestre:
     def mostrar_info_semestre(self):
         info = f"ID: {self.id}, Numero: {self.numero}, ID de la carrera: {self.id_carrera}"
         return info
- 
