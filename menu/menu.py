@@ -31,7 +31,7 @@ class Menu:
                 intentos = self.mostrar_intentos_sesion_fallido(intentos_usuario = intentos)
             else:
                 if usuario.rol == Rol.ESTUDIANTE:
-                    self.mostrar_menu_estudainte(usuario)
+                    self.mostrar_menu_estudainte(estudiante=usuario)
                     intentos = 0
                 elif usuario.rol == Rol.MAESTRO:
                     self.mostrar_menu_maestro(usuario)
@@ -46,22 +46,22 @@ class Menu:
         print("Usuario o contrasena incorrectos, intenta nuevamente")
         return intentos_usuario + 1
     
-    def mostrar_menu_estudainte(self, usuario: Estudiante):
+    def mostrar_menu_estudainte(self, usuario: Estudiante, estudiante: Estudiante):
         opcion = 0
         while opcion != 4:
             print("----------------------------------------------------")
             print("****** MindBox ******")
             print("1. Ver Horarios")
-            print("2. Ver Grupos")
+            print("2. Ver mis Grupos")
             print("3. Ver mi info")
             print("4. Salir")
             opcion = int(input("Ingresa una opcion: "))
             
-            # if opcion == 2:
-            #     print("----------------------------------------------------")
-            #     print("Seleccionaste la opcion para mostrar los grupos")
-            #     print("----------------------------------------------------")
-            #     self.escuela.listar_grupos()
+            if opcion == 2:
+                print("----------------------------------------------------")
+                print("Seleccionaste la opcion para mostrar los grupos")
+                print("----------------------------------------------------")
+                self.escuela.ver_grupo_asignados_a_estudiante(numero_control_estudiante=estudiante.numero_control)
             
             if opcion == 3:
                 print("----------------------------------------------------")
@@ -120,7 +120,8 @@ class Menu:
             print("17. Eliminar Materia")
             print("----------------------------------------------------")
             print("18. Mostrar Info")
-            print("19. Salir")
+            print("19. Registrar estudiante en grupo")
+            print("20. Salir")
             print("----------------------------------------------------")
             
             opcion = input("Ingresa una opcion para continuar: ")
@@ -178,8 +179,17 @@ class Menu:
                 descripcion = input("Ingresa una descripcion de la materia: ")
                 semestre = int(input("Ingresa el semestre de la materia: "))
                 creditos = int(input("Ingresa los creditos correspondientes de la materia: "))
+                id_maestro = input("Ingresa el nuero de control del maestro asignado a esta materia: ")
+                
+                maestro = self.escuela.buscar_maestro_por_numero_control(
+                    numero_control_maestro = id_maestro
+                )
+                
+                if maestro is None:
+                    print("No existe un maestro con ese numero de control")
+                    
 
-                materia = Materia("", nombre, descripcion, semestre, creditos)
+                materia = Materia("", nombre, descripcion, semestre, creditos, maestro)
                 numero_control = self.escuela.generar_numero_control_materia(materia, semestre, creditos)
                 materia.numero_control = numero_control
                 self.escuela.registrar_materia(materia)
@@ -282,6 +292,15 @@ class Menu:
                 print(usuario.mostrar_info_coordinador())
             
             if opcion == "19":
+                numero_control_estudiante = input("Ingresa el numero de control del estudiante: ")
+                id_grupo = input("Ingresa el ID del grupo al cual asignaras al estudiante: ")
+                
+                self.escuela.registrar_estudiante_en_grupo(
+                    numero_control_estudiante=numero_control_estudiante
+                    id_grupo=id_grupo
+                )
+            
+            if opcion == "20":
                 print("----------------------------------------------------")
                 print("Hasta luego")
                 break
