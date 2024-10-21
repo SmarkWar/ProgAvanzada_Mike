@@ -9,7 +9,6 @@ from carrera.carrera import Carrera
 from grupos.grupo import Grupo
 from semestre.semestre import Semestre
 from usuario.usuario import Usuario
-from usuario.utils.roles import Rol
 from coordinador.coordinador import Coordinador
 
 class Escuela:
@@ -25,7 +24,7 @@ class Escuela:
     def __init__(self):
         coordinador = Coordinador(numero_control = "12345", nombre = "Mike", apellido = "Contreras", rfc = "COCM040323IJ7", sueldo = 100000, antiguedad = 10, contrasena = "12345")
         self.lista_usuarios.append(coordinador)
-        
+    
     def __init__(self):
         estudiante = Estudiante(numero_control = "123", nombre = "Jose", apellido = "Salazar", curp = "QWERTY12345DFG", fecha_nacimiento = "2004-03-23", contrasena = "123")
         self.lista_usuarios.append(estudiante)
@@ -34,24 +33,93 @@ class Escuela:
         maestro = Maestro(numero_control = "321", nombre = "Roberto", apellido = "Ceballos", rfc = "23456DFGH", sueldo = 40000, fecha_nacimiento_maestro = "2000-03-23", contrasena = "321")
         self.lista_usuarios.append(maestro)
         
+    ### ESTUDIANTE ###
+    
+    def registrar_estudiante(self, estudiante: Estudiante):
+        self.lista_usuarios.append(estudiante)
+        self.lista_estudiantes.append(estudiante)
+        print("Se registro con exito al estudiante con numero de control: ", estudiante.numero_control)
+        
+    def generar_numero_control(self):
+        numero_control = f"L{datetime.now().year}{datetime.now().month}{len(self.lista_estudiantes) + 1}{randint(1, 10000)}"
+        return numero_control
+    
+    def listar_estudiantes(self):
+        print("----------------------------------------------------")
+        print("** ESTUDIANTES **")
+        for estudiante in self.lista_estudiantes:
+            print(estudiante.mostrar_info_estudiante())
+    
+    def eliminar_estudiante(self, numero_control: str):
+        print("----------------------------------------------------")
+        for estudiante in self.lista_estudiantes:
+            if estudiante.numero_control == numero_control.strip():
+                self.lista_estudiantes.remove(estudiante)
+                print("Estudiante eliminado")
+                print(f"El estudiante {estudiante.nombre} {estudiante.apellido}, ha sido eliminado")
+                return
+        print(f"No se encontro el estudiante con numero de control: {numero_control}")
+    
+    ### MAESTRO ###
+      
+    def registrar_maestro(self, maestro: Maestro):
+        self.lista_usuarios.append(maestro)
+        self.lista_maestros.append(maestro)
+        print("Se registro con exito al maestro con numero de control: ", maestro.numero_control)
+    
+    def generar_numero_control_maestro(self, maestro: Maestro):
+        numero_control = f"M{maestro.fecha_nacimiento_maestro.year}{datetime.now().day}{randint(500, 5000)}{maestro.nombre[:2].upper()}{maestro.rfc[-2:].upper()}{len(self.lista_maestros)+1}"
+        return numero_control
+        
+    def listar_maestros(self):
+        print("----------------------------------------------------")
+        print("** MAESTROS **")
+        for maestro in self.lista_maestros:
+            print(maestro.mostrar_info_maestro())
+    
+    def eliminar_maestro(self, numero_control: str):
+        print("----------------------------------------------------")
+        for maestro in self.lista_maestros:
+            if maestro.numero_control == numero_control.strip():
+                self.lista_maestros.remove(maestro)
+                print("Maestro eliminado")
+                print(f"El maestro {maestro.nombre} {maestro.apellido}, ha sido eliminado")
+                return
+        print(f"No se encontro el maestro con numero de control: {numero_control}")
+    
+    ### MATERIA ###
+    
+    def registrar_materia(self, materia:Materia):
+        self.lista_materias.append(materia)
+    
+    def listar_materias(self):
+        print("----------------------------------------------------")
+        print("** MATERIAS **")
+        for materia in self.lista_materias:
+            print(materia.mostrar_info_materia())
+    
+    #! No se si talves haya un error por poner numero de control_materia en lugar de id_materia
+    
+    def eliminar_materia(self, numero_control: str):
+        for materia in self.lista_materias:
+            if materia.numero_control == numero_control.strip():
+                self.lista_materias.remove(materia)
+                print(f"La materia {materia.nombre}, fue eliminada")
+                return
+        print(f"No se encontro la materia con numero de control: {numero_control}")
+    
+    ### CARRERA ###
+    ### SEMESTRE ###
+    ### GRUPO ###
+    ### VALIDAR USUARIOS ###
+
     def validar_inicio_sesion(self, numero_control: str, contrasena: str):
         for usuario in self.lista_usuarios:
             if usuario.numero_control == numero_control:
                 if usuario.contrasena == contrasena:
                     return usuario
         return None
-
-    def registrar_estudiante(self, estudiante: Estudiante):
-        self.lista_usuarios.append(estudiante)
-        self.lista_estudiantes.append(estudiante)
-        
-    def registrar_maestro(self, maestro: Maestro):
-        self.lista_usuarios.append(maestro)
-        self.lista_maestros.append(maestro)
-    
-    def registrar_materia(self, materia:Materia):
-        self.lista_materias.append(materia)
-    
+      
     def registrar_carrera(self, carrera: Carrera):
         self.lista_carreras.append(carrera)
     
@@ -75,24 +143,9 @@ class Escuela:
             
         self.lista_semestres.append(semestre)
         
-    def generar_numero_control(self):
-        numero_control = f"L{datetime.now().year}{datetime.now().month}{len(self.lista_estudiantes) + 1}{randint(1, 10000)}"
-        return numero_control
-        
-    def generar_numero_control_maestro(self, maestro: Maestro):
-        numero_control = f"M{maestro.fecha_nacimiento_maestro.year}{datetime.now().day}{randint(500, 5000)}{maestro.nombre[:2].upper()}{maestro.rfc[-2:].upper()}{len(self.lista_maestros)+1}"
-        return numero_control
-        
     def generar_numero_control_materia(self, materia: Materia, semestre: Materia, creditos: Materia):
         numero_control = f"MT{materia.nombre[-2:].upper()}{semestre}{creditos}{randint(1, 1000)}"
         return numero_control
-
-    def listar_estudiantes(self):
-        print("----------------------------------------------------")
-        print("** ESTUDIANTES **")
-        
-        for estudiante in self.lista_estudiantes:
-            print(estudiante.mostrar_info_estudiante())
     
     def mostrar_estudiante(self):
         print("----------------------------------------------------")
@@ -100,13 +153,6 @@ class Escuela:
         for estudiante in self.lista_estudiantes:
             print(estudiante.mostrar_info_estudiante)
         
-    def listar_maestros(self):
-        print("----------------------------------------------------")
-        print("** MAESTROS **")
-        
-        for maestro in self.lista_maestros:
-            print(maestro.mostrar_info_maestro())
-    
     def mostrar_maestro(self):
         print("----------------------------------------------------")
         print("*** Mis Datos ***")
@@ -118,13 +164,6 @@ class Escuela:
         print("*** Mis Datos ***")
         for coordinador in self.lista_coordinadores:
             print(coordinador.mostrar_info_coordinador)
- 
-    def listar_materias(self):
-        print("----------------------------------------------------")
-        print("** MATERIAS **")
-        
-        for materia in self.lista_materias:
-            print(materia.mostrar_info_materia())
  
     def listar_carreras(self):
         print("----------------------------------------------------")
@@ -146,35 +185,6 @@ class Escuela:
         
         for grupo in self.lista_grupos:
             print(grupo.mostrar_info_grupo())
-    
-    def eliminar_estudiante(self, numero_control: str):
-        print("----------------------------------------------------")
-        for estudiante in self.lista_estudiantes:
-            if estudiante.numero_control == numero_control:
-                self.lista_estudiantes.remove(estudiante)
-                print("Estudiante eliminado")
-                return
-        
-        print(f"No se encontro el estudiante con numero de control: {numero_control}")
-    
-    def eliminar_maestro(self, numero_control: str):
-        print("----------------------------------------------------")
-        for maestro in self.lista_maestros:
-            if maestro.numero_control == numero_control:
-                self.lista_maestros.remove(maestro)
-                print("Maestro eliminado")
-                return
-        
-        print(f"No se encontro el maestro con numero de control: {numero_control}")
-    
-    def eliminar_materia(self, numero_control: str):
-        for materia in self.lista_materias:
-            if materia.numero_control == numero_control:
-                self.lista_materias.remove(materia)
-                print("Materia eliminada")
-                return
-        
-        print(f"No se encontro la materia con numero de control: {numero_control}")
     
     def buscar_estudainte_por_numero_control(self, numero_control_estudiante: str):
         for estudiante in self.lista_estudiantes:
